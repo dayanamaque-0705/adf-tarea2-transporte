@@ -33,7 +33,7 @@
 						"referenceName": "bronze_paradas_2023_xlsx",
 						"type": "DatasetReference"
 					},
-					"name": "xls2023"
+					"name": "xlsx2023"
 				}
 			],
 			"sinks": [],
@@ -42,7 +42,19 @@
 					"name": "select1"
 				},
 				{
-					"name": "select2"
+					"name": "select2022"
+				},
+				{
+					"name": "select2023"
+				},
+				{
+					"name": "csvsql"
+				},
+				{
+					"name": "csvxls2022"
+				},
+				{
+					"name": "csvxls2023"
 				}
 			],
 			"scriptLines": [
@@ -60,15 +72,15 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> csv",
 				"source(output(",
-				"          AnioFuente as integer,",
+				"          AnioFuente as string,",
 				"          ParadaHistoricaId as string,",
 				"          CodigoPublicado as string,",
 				"          NombreParada as string,",
 				"          Zona as string,",
-				"          Latitud as decimal(9,6),",
-				"          Longitud as decimal(9,6),",
-				"          VigenciaDesde as date,",
-				"          VigenciaHasta as date,",
+				"          Latitud as string,",
+				"          Longitud as string,",
+				"          VigenciaDesde as string,",
+				"          VigenciaHasta as string,",
 				"          Estado as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
@@ -76,31 +88,31 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> sql",
 				"source(output(",
-				"          Column_1 as string,",
-				"          Column_2 as string,",
-				"          Column_3 as string,",
-				"          Column_4 as string,",
-				"          Column_5 as string,",
-				"          Column_6 as string,",
-				"          Column_7 as string,",
-				"          Column_8 as string",
+				"          nro_parada as string,",
+				"          nombre_parada as string,",
+				"          zona as string,",
+				"          latitud as string,",
+				"          longitud as string,",
+				"          fecha_desde as string,",
+				"          fecha_hasta as string,",
+				"          estado as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> xls2022",
 				"source(output(",
-				"          Column_1 as string,",
-				"          Column_2 as string,",
-				"          Column_3 as string,",
-				"          Column_4 as string,",
-				"          Column_5 as string,",
-				"          Column_6 as string,",
-				"          Column_7 as string,",
-				"          Column_8 as string",
+				"          nro_parada as string,",
+				"          nombre_parada as string,",
+				"          zona as string,",
+				"          latitud as string,",
+				"          longitud as string,",
+				"          fecha_desde as string,",
+				"          fecha_hasta as string,",
+				"          estado as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> xls2023",
+				"     ignoreNoFilesFound: false) ~> xlsx2023",
 				"csv select(mapColumn(",
 				"          CodigoPublicado = nro_parada,",
 				"          NombreParada = nombre_parada,",
@@ -114,17 +126,32 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"xls2022 select(mapColumn(",
-				"          CodigoPublicado = Column_1,",
-				"          NombreParada = Column_2,",
-				"          Zona = Column_3,",
-				"          Latitud = Column_4,",
-				"          Longitud = Column_5,",
-				"          VigenciaDesde = Column_6,",
-				"          VigenciaHasta = Column_7,",
-				"          Estado = Column_8",
+				"          CodigoPublicado = nro_parada,",
+				"          NombreParada = nombre_parada,",
+				"          Zona = zona,",
+				"          Latitud = latitud,",
+				"          Longitud = longitud,",
+				"          VigenciaDesde = fecha_desde,",
+				"          VigenciaHasta = fecha_hasta,",
+				"          Estado = estado",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select2"
+				"     skipDuplicateMapOutputs: true) ~> select2022",
+				"xlsx2023 select(mapColumn(",
+				"          CodigoPublicado = nro_parada,",
+				"          NombreParada = nombre_parada,",
+				"          Zona = zona,",
+				"          Latitud = latitud,",
+				"          Longitud = longitud,",
+				"          VigenciaDesde = fecha_desde,",
+				"          VigenciaHasta = fecha_hasta,",
+				"          Estado = estado",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2023",
+				"select1, sql union(byName: true)~> csvsql",
+				"csvsql, select2022 union(byName: true)~> csvxls2022",
+				"csvxls2022, select2023 union(byName: true)~> csvxls2023"
 			]
 		}
 	}
