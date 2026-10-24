@@ -17,7 +17,8 @@
 				"fileName": "operacion_2023.xlsx",
 				"folderPath": "datos_xls",
 				"fileSystem": "raw"
-			}
+			},
+			"firstRowAsHeader": true
 		},
 		"schema": [
 			{
