@@ -33,11 +33,13 @@
 				},
 				{
 					"name": "derivedtipos"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
 				"source(output(",
-				"          AnioFuente as string,",
 				"          ParadaHistoricaId as string,",
 				"          CodigoPublicado as string,",
 				"          NombreParada as string,",
@@ -59,9 +61,18 @@
 				"          Estado = upper(trim(Estado))) ~> derivedtextos",
 				"derivedtextos derive(Latitud = toDecimal(trim(Latitud), 9, 6),",
 				"          Longitud = toDecimal(trim(Longitud), 9, 6),",
-				"          VigenciaDesde = toDate(trim(VigenciaDesde), 'yyyy-MM-dd'),",
-				"          VigenciaHasta = toDate(trim(VigenciaHasta), 'yyyy-MM-dd')) ~> derivedtipos",
-				"derivedtipos sink(allowSchemaDrift: true,",
+				"          VigenciaDesde = iif(isNull(VigenciaDesde) || trim(toString(VigenciaDesde)) == '' || upper(trim(toString(VigenciaDesde))) == 'NULL',     toDate('1900-01-01', 'yyyy-MM-dd'),     iif(instr(toString(VigenciaDesde), '/') > 0,         toDate(trim(toString(VigenciaDesde)), 'dd/MM/yyyy'),         toDate(trim(toString(VigenciaDesde)), 'yyyy-MM-dd')     ) ),",
+				"          VigenciaHasta = iif(isNull(VigenciaHasta) || trim(toString(VigenciaHasta)) == '' || upper(trim(toString(VigenciaHasta))) == 'NULL',     toDate('2099-12-31', 'yyyy-MM-dd'),     iif(instr(toString(VigenciaHasta), '/') > 0,         toDate(trim(toString(VigenciaHasta)), 'dd/MM/yyyy'),         toDate(trim(toString(VigenciaHasta)), 'yyyy-MM-dd')     ) )) ~> derivedtipos",
+				"derivedtipos aggregate(groupBy(ParadaHistoricaId),",
+				"     CodigoPublicado = first(CodigoPublicado),",
+				"          NombreParada = first(NombreParada),",
+				"          Zona = first(Zona),",
+				"          Latitud = first(Latitud),",
+				"          Longitud = first(Longitud),",
+				"          VigenciaDesde = first(VigenciaDesde),",
+				"          VigenciaHasta = first(VigenciaHasta),",
+				"          Estado = first(Estado)) ~> aggregate1",
+				"aggregate1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          ParadaHistoricaId as string,",

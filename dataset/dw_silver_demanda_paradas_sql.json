@@ -1,5 +1,5 @@
 {
-	"name": "dw_demanda_paradas_sql",
+	"name": "dw_silver_demanda_paradas_sql",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "sql_dw_trasporte",
@@ -11,11 +11,6 @@
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
-			{
-				"name": "AnioFuente",
-				"type": "smallint",
-				"precision": 5
-			},
 			{
 				"name": "DemandaId",
 				"type": "nvarchar"

@@ -163,7 +163,6 @@
 				"csvxls2023 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          AnioFuente as string,",
 				"          ParadaHistoricaId as string,",
 				"          CodigoPublicado as string,",
 				"          NombreParada as string,",

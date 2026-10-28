@@ -12,10 +12,6 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "AnioFuente",
-				"type": "varchar"
-			},
-			{
 				"name": "VehiculoId",
 				"type": "varchar"
 			},

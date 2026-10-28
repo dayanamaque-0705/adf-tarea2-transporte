@@ -182,7 +182,6 @@
 				"csvxlsx2023 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          AnioFuente as string,",
 				"          ViajeId as string,",
 				"          RutaHistoricaId as string,",
 				"          VehiculoId as string,",

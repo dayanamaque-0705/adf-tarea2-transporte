@@ -180,7 +180,6 @@
 				"csvxlsx2023 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          AnioFuente as string,",
 				"          IncidenteId as string,",
 				"          TipoIncidente as string,",
 				"          Severidad as string,",
