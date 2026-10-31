@@ -1,6 +1,10 @@
 {
 	"name": "bronze_viajes_sql",
 	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sql_erp_transporte",
+			"type": "LinkedServiceReference"
+		},
 		"folder": {
 			"name": "bronze/sql/erp"
 		},
