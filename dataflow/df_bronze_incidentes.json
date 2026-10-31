@@ -15,6 +15,10 @@
 					"name": "csv"
 				},
 				{
+					"dataset": {
+						"referenceName": "bronze_incidente_ruta_sql",
+						"type": "DatasetReference"
+					},
 					"name": "sql"
 				},
 				{
@@ -79,18 +83,15 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> csv",
 				"source(output(",
-				"          AnioFuente as string,",
+				"          AnioFuente as integer,",
 				"          IncidenteId as string,",
-				"          TipoIncidente as string,",
-				"          Severidad as string,",
-				"          FechaHoraInicio as string,",
-				"          FechaHoraFin as string,",
-				"          FechaHoraRegistro as string,",
-				"          VehiculoId as string,",
-				"          Descripcion as string",
+				"          RutaHistoricaId as string,",
+				"          EsPrincipal as boolean",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> sql",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> sql",
 				"source(output(",
 				"          id_incidente as string,",
 				"          tipo as string,",

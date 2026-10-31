@@ -15,6 +15,10 @@
 					"name": "csv"
 				},
 				{
+					"dataset": {
+						"referenceName": "bronze_demanda_paradas_sql",
+						"type": "DatasetReference"
+					},
 					"name": "sql"
 				},
 				{
@@ -76,19 +80,21 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> csv",
 				"source(output(",
-				"          AnioFuente as string,",
+				"          AnioFuente as integer,",
 				"          DemandaId as string,",
-				"          FechaServicio as string,",
+				"          FechaServicio as date,",
 				"          RutaHistoricaId as string,",
 				"          ParadaHistoricaId as string,",
 				"          Franja as string,",
-				"          ValidacionesTarjeta as string,",
-				"          Descensos as string,",
-				"          DemandaNoAtendida as string,",
+				"          ValidacionesTarjeta as integer,",
+				"          Descensos as integer,",
+				"          DemandaNoAtendida as integer,",
 				"          Metodo as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> sql",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> sql",
 				"source(output(",
 				"          fecha_servicio as string,",
 				"          cod_ruta as string,",
