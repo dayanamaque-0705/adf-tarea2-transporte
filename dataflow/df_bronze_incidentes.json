@@ -15,10 +15,6 @@
 					"name": "csv"
 				},
 				{
-					"dataset": {
-						"referenceName": "bronze_incidentes_sql",
-						"type": "DatasetReference"
-					},
 					"name": "sql"
 				},
 				{
@@ -94,9 +90,7 @@
 				"          Descripcion as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> sql",
+				"     validateSchema: false) ~> sql",
 				"source(output(",
 				"          id_incidente as string,",
 				"          tipo as string,",

@@ -15,10 +15,6 @@
 					"name": "csv"
 				},
 				{
-					"dataset": {
-						"referenceName": "bronze_demanda_paradas_sql",
-						"type": "DatasetReference"
-					},
 					"name": "sql"
 				},
 				{
@@ -92,9 +88,7 @@
 				"          Metodo as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> sql",
+				"     validateSchema: false) ~> sql",
 				"source(output(",
 				"          fecha_servicio as string,",
 				"          cod_ruta as string,",

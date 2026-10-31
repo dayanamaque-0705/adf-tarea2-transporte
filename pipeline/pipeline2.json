@@ -64,7 +64,7 @@
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
-						"activity": "sc_reset_tablas_silver",
+						"activity": "rutas_silver",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -95,7 +95,7 @@
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
-						"activity": "sc_reset_tablas_silver",
+						"activity": "vehiculos_silver",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -126,13 +126,7 @@
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
-						"activity": "rutas_silver",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "vehiculos_silver",
+						"activity": "demanda_paradas_silver",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -163,7 +157,7 @@
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
-						"activity": "vehiculos_silver",
+						"activity": "paradas_silver",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -194,13 +188,7 @@
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
-						"activity": "rutas_silver",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "paradas_silver",
+						"activity": "incidentes_silver",
 						"dependencyConditions": [
 							"Succeeded"
 						]
